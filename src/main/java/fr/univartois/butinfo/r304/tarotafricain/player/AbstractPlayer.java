@@ -38,7 +38,7 @@ public abstract class AbstractPlayer implements IPlayer{
 
     @Override
     public List<Card> getHand() {
-        return List.of();
+        return hand;
     }
 
     @Override
@@ -49,6 +49,8 @@ public abstract class AbstractPlayer implements IPlayer{
 
     @Override
     public abstract int makeBid(Round round);
+
+    public abstract Card play(Trick trick);
 
     protected List<Card> computeAllowedCards(Trick trick){
         List<Card> allowedCards = new ArrayList<>();

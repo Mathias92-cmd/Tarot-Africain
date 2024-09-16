@@ -21,4 +21,18 @@ public class Trick {
     public int getWinner() {
 
     }
+
+    public void play(int currentPlayer, Card card){
+        cards.add(card);
+        if(cards.size() == 1){
+            bestCardIndex = 0;
+            bestPlayerIndex = currentPlayer;
+        }
+        else {
+            if(card.compareTo(cards.get(bestCardIndex)) > 0){
+                bestCardIndex = cards.size() - 1;
+                bestPlayerIndex = currentPlayer;
+            }
+        }
+    }
 }

@@ -2,7 +2,14 @@ package fr.univartois.butinfo.r304.tarotafricain;
 
 import fr.univartois.butinfo.r304.tarotafricain.cards.Card;
 
+import java.util.List;
+
 public class Trick {
+
+    private List<Card> cards;
+    private int bestCardIndex;
+    private int bestPlayerIndex;
+
     public boolean isEmpty(){
         return false;
     }

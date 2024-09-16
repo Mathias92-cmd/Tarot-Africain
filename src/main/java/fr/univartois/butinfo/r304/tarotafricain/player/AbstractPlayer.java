@@ -48,9 +48,7 @@ public abstract class AbstractPlayer implements IPlayer{
 
 
     @Override
-    public int makeBid(Round round) {
-        return 0;
-    }
+    public abstract int makeBid(Round round);
 
     protected List<Card> computeAllowedCards(Trick trick){
         List<Card> allowedCards = new ArrayList<>();

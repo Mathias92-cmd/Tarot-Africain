@@ -60,8 +60,16 @@ public class HumanPlayer extends AbstractPlayer{
         List<Card> playableCards = computeAllowedCards(trick);
         System.out.println("They are the cartes you can play ");
         System.out.println(playableCards);
-        System.out.println("Enter the index of the card you want to play !");
-        int index = scanner.nextInt();
+        int index = 0;
+        do {
+            System.out.println("Enter the index of the card you want to play : ");
+            try {
+                index = scanner.nextInt();
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number");
+                index = -1;
+            }
+        } while(index < 0 || index >= playableCards.size());
         Card card = playableCards.get(index);
         getHand().remove(card);
         return card;

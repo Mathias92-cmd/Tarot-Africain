@@ -16,7 +16,32 @@ public class HumanPlayer extends AbstractPlayer{
         super(name);
     }
 
+    public int readBid(Round round){
+        System.out.println("Enter your bid : ");
+        int bid = 0;
 
+        do {
+            try {
+                bid = scanner.nextInt();
+                if(bid < 0 || bid > round.getNumberOfCards()){
+                    System.out.println("Please enter a valid number");
+                    bid = -1;
+                    continue;
+                }
+            } catch (Exception e) {
+                System.out.println("The sum of the bids must be equal to the number of cards");
+                bid = -1;
+                continue;
+            }
+            if(round.getNumberOfBids() == (Game.NB_PLAYERS) - 1){
+                if((round.getTotalBids() + bid) == round.getNumberOfCards()){
+                    System.out.println("Error , enter new bid ! ");
+                    bid = -1;
+                }
+            }
+        } while(bid < 0 || bid > round.getNumberOfCards());
+        return bid;
+    }
 
     public int makeBid(Round round){
         System.out.println("Enter your bid : ");

@@ -15,7 +15,11 @@ public class Trick {
     }
 
     public Card getBestCard(){
-
+        for(Card card : cards){
+            if(card.compareTo(cards.get(bestCardIndex)) > 0){
+                bestCardIndex = cards.indexOf(card);
+            }
+        } return cards.get(bestCardIndex);
     }
 
     public int getWinner() {

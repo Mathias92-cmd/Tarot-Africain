@@ -35,12 +35,19 @@ public class Round {
         askBids();
         for (int i = 0; i < numberOfCards; i++) {
             Trick trick = new Trick();
-
+            playTrick(trick);
+            scores[trick.getWinner()]++;
+            currentPlayer = trick.getWinner();
         }
     }
 
     public void dealCards(){
-
+        deck.shuffle();
+        for (int i = 0; i < numberOfCards; i++) {
+            for (IPlayer player : players) {
+                player.give(deck.draw());
+            }
+        }
     }
 
     public void setPlayers(List<IPlayer> players) {
@@ -60,7 +67,12 @@ public class Round {
     }
 
     private void askBids(){
-
+        for (int i = 0; i < Game.NB_PLAYERS; i++) {
+            int bid = players.get(currentPlayer).makeBid(this);
+            bids[currentPlayer] = bid;
+            totalsBids += bid;
+            currentPlayer = (currentPlayer + 1) % Game.NB_PLAYERS;
+        }
     }
 
     private void playTrick(Trick trick){

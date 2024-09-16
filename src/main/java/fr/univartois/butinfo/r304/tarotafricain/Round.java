@@ -30,6 +30,19 @@ public class Round {
         return players;
     }
 
+    public void play() {
+        dealCards();
+        askBids();
+        for (int i = 0; i < numberOfCards; i++) {
+            Trick trick = new Trick();
+
+        }
+    }
+
+    public void dealCards(){
+
+    }
+
     public void setPlayers(List<IPlayer> players) {
         this.players = players;
     }
@@ -55,6 +68,6 @@ public class Round {
     }
 
     public int getPenalty(int playerIndex){
-
+        return Math.abs(bids[playerIndex] - scores[playerIndex]);
     }
 }

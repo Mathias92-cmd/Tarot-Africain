@@ -1,0 +1,75 @@
+@startuml
+
+hide empty members
+
+class Carte {
+    nbCartes : int
+}
+
+class Excuse {
+    valMax : boolean
+    compareTo(atout : Atout) : int
+    compareTo(excuse : Excuse) : int
+}
+
+class JHumain {
+    jouerCarte(carte : Carte) : void
+}
+
+class JIa {
+    jouerCarte(carte : Carte) : void
+}
+
+interface IJoueur {
+    jouer() : void
+    choisirCarte() : Carte
+}
+
+abstract class Joueur {
+    nbVies : int
+    parier() : void
+}
+
+class Jeu {
+    joueurs : IJoueur[4]
+    joueurCourant : IJoueur
+    Jeu()
+    nouveauTour() : void
+    joueur() : void
+    partieTerminee() : boolean
+}
+
+class Pli {
+    carteLaPlusForte() : void
+}
+
+class Tour {
+    distribuerCarte() : void
+}
+
+enum Atout {
+    1, 21
+}
+
+class Tas {
+
+}
+
+interface ICarte {
+    compareTo(atout : Atout) : int
+    compareTo(excuse : Excuse) : int
+}
+
+Excuse --|> ICarte
+Pli "1" *.. "0..4" Carte
+Tas "1" *.. "0..22" Carte
+Joueur <|-- JHumain
+Joueur <|-- JIa
+Tour o-- "0..5" Pli
+Jeu o-- "4" IJoueur
+Jeu <-- Tour
+Atout --|> ICarte
+IJoueur <|-- JHumain
+IJoueur <|-- JIa
+
+@enduml

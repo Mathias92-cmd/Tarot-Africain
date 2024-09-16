@@ -1,0 +1,119 @@
+@startuml
+
+' Cacher les attributs vides dans les classes
+hide empty members
+
+' Déclaration des classes principales
+
+abstract class Joueur {
+    -nbVie : int
+    -nom : String
+    +parier(nbPlis : int) : void
+    +jouerCarte() : Carte
+    +Joueur(nom : String)
+    +gagnerPlis() : void
+    +perdreVie(vies : int) : void
+    +estElimine() : boolean
+}
+
+class Carte {
+    -valeur : int
+    -couleur : String
+    +Carte(valeur : int, couleur : String)
+    +getValeur() : int
+    +getCouleur() : String
+    +compareTo(carte : Carte) : int
+}
+
+class Jeu {
+    -joueurs : IJoueur[4]
+    -joueurCourant : IJoueur
+-tourCourant : Tour
+--
++Jeu() : void
++demarrerPartie() : void
++nouvelleTour() : void
++finPartie() : void
++getGagnant() : IJoueur
+
+}
+
+interface IJoueur {
+    +jouer() : void
+    +choisirCarte() : Carte
+    +parier(nbPlis : int) : void
+}
+
+class PLI {
+    -cartes : Carte[4]
+    -gagnant : IJoueur
+    +ajouterCarte(carte : Carte, joueur : IJoueur) : void
+    +determinerGagnant() : IJoueur
+    +getCartes() : List<Carte>
+}
+
+class Tas {
+    -cartes : Carte[22]
+    +melanger() : void
+    +distribuer(joueurs : IJoueur[]) : void
+}
+
+class Tour {
+    -numeroTour : int
+    -pliActuel : PLI
+-joueurs : IJoueur[]
+--
++distribuerCartes() : void
++jouerPlis() : void
++calculerResultats() : void
++passerAuTourSuivant() : void
+
+}
+
+enum Atout {
+    ATOUT_1,
+    ATOUT_2,
+    ATOUT_3,
+    ATOUT_4,
+    ATOUT_5,
+    ...
+    ATOUT_21
+}
+
+class JHumain extends Joueur {
+    +JHumain(nom : String)
+    +demanderPari() : int
+    +choisirCarte() : Carte
+}
+
+class JIA extends Joueur {
+    +JIA(nom : String)
+    +parier() : int
+    +jouerCarte() : Carte
+}
+
+class Excuse extends Carte {
+    -valMax : boolean
+    +Excuse()
+    +compareTo(carte : Carte) : int
+    +setValeur(valeur : int) : void
+}
+
+interface ICarte {
+    +compareTo(carte : Carte) : int
+}
+
+PLI "1" *.. "0..4" Carte
+Tas "1" *.. "0..22" Carte
+
+Tour o-- "0..5" PLI
+Jeu o-- Tour
+
+Atout ..|> ICarte
+Excuse ..|> ICarte
+Carte -- ICarte
+
+Jeu o-- "4" IJoueur
+IJoueur <|.. Joueur
+
+@enduml
